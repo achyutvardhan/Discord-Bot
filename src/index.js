@@ -1,0 +1,1 @@
+const {Client,GatewayIntentBits,Events} = require('discord.js')
