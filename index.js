@@ -8,42 +8,49 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
-const commandPath = path.join(__dirname,'command');
-const commandfiles = fs.readdirSync(commandPath).filter(file=> file.endsWith('.js'));
+// const commandPath = path.join(__dirname,'command');
+// const commandfiles = fs.readdirSync(commandPath).filter(file=> file.endsWith('.js'));
 
-for(const file of commandfiles)
-{
-    const filePath = path.join(commandPath,file);
-    const command = require(filePath);
-    
-    if('data' in command && 'execute' in command )
-    {
-        client.commands.set(command.data.name,command);
-    }else{
-        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`)
-    }
-}
-
-//if files are organised in command folder
-// for(const folder of commandfiles)
+// for(const file of commandfiles)
 // {
-//    const commandsPath = path.join(commandPath,folder);
-//    const commandsfile = fs.readdirSync(commandPath).filter(file=> file.endsWith('.js'));
-   
-//    for(const file of commandsfile)
-//    {
-
-//        const filePath = path.join(commandsPath,file);
-//        const command = require(filePath);
-       
-//        if('data' in command && 'execute' in command )
-//        {
-//            client.commands.set(command.data.name,command);
-//        }else{
-//            console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`)
-//        }
-//    }
+//     const filePath = path.join(commandPath,file);
+//     const command = require(filePath);
+    
+//     if('data' in command && 'execute' in command )
+//     {
+//         client.commands.set(command.data.name,command);
+//     }else{
+//         console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`)
+//     }
 // }
+
+
+
+// ******if files are organised in command folder*******
+
+
+const commandPath = path.join(__dirname,'command');
+const commandfiles = fs.readdirSync(commandPath);
+
+for(const folder of commandfiles)
+{
+   const commandsPath = path.join(commandPath,folder);
+   const commandsfile = fs.readdirSync(commandPath).filter(file=> file.endsWith('.js'));
+   
+   for(const file of commandsfile)
+   {
+
+       const filePath = path.join(commandsPath,file);
+       const command = require(filePath);
+       
+       if('data' in command && 'execute' in command )
+       {
+           client.commands.set(command.data.name,command);
+       }else{
+           console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`)
+       }
+   }
+}
 
 client.on(Events.InteractionCreate,async interaction =>{
     if (!interaction.isChatInputCommand()) return;
