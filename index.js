@@ -29,10 +29,10 @@ client.commands = new Collection();
 // ******if files are organised in command folder*******
 
 
-const commandPath = path.join(__dirname,'command');
-const commandfiles = fs.readdirSync(commandPath);
+const commandPath = path.join(__dirname,'commands');
+const commandfolder = fs.readdirSync(commandPath);
 
-for(const folder of commandfiles)
+for(const folder of commandfolder)
 {
    const commandsPath = path.join(commandPath,folder);
    const commandsfile = fs.readdirSync(commandPath).filter(file=> file.endsWith('.js'));
@@ -56,9 +56,10 @@ client.on(Events.InteractionCreate,async interaction =>{
     if (!interaction.isChatInputCommand()) return;
     
     const command = interaction.client.commands.get(interaction.commandName);
+      
     if(!command)
     {
-        console.log(`No command matching ${interaction.commandName} was found`);
+        console.error(`No command matching ${interaction.commandName} was found`);
         return;
     }
 
