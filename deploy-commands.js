@@ -1,8 +1,8 @@
 const {REST,Routes}= require('discord.js')
-const {token,clientId,guildId} = require('./config.json');
+const {clientId,guildId} = require('./config.json');
 const fs = require('node:fs')
 const path =require('node:path')
-
+require('dotenv').config();
 
 
 const commands =[];
@@ -30,7 +30,7 @@ for(const folder of commandFolder)
 
 // Rest moudle instance created 
 
-const rest = new REST().setToken(token);
+const rest = new REST().setToken(process.env.TOKEN);
 
 // deploy your command 
 
