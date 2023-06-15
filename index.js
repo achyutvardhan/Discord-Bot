@@ -6,7 +6,7 @@ const path = require("node:path");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
-
+client.cooldowns = new Collection();
 // const commandPath = path.join(__dirname,'command');
 // const commandfiles = fs.readdirSync(commandPath).filter(file=> file.endsWith('.js'));
 
@@ -36,7 +36,7 @@ for (const folder of commandfiles) {
   for (const file of commandsfile) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
-console.log(client.commands);
+// console.log(client.commands);
     if ("data" in command && "execute" in command) {
         client.commands.set(command.data.name, command);
     } else {
