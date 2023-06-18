@@ -17,7 +17,6 @@ module.exports = {
 	if (!cooldowns.has(command.data.name)) {
 		cooldowns.set(command.data.name, new Collection());
 	}
-   console.log(cooldowns);
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.data.name);
 	const defaultCooldownDuration = 3;
@@ -31,7 +30,7 @@ module.exports = {
 			return interaction.reply({ content: `Please wait, you are on a cooldown for \`${command.data.name}\`. You can use it again <t:${expiredTimestamp}:R>.`, ephemeral: true });
 		}
 	}
-
+    // if its first time then timestamp stores the details
 	timestamps.set(interaction.user.id, now);
 	setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 		try {
