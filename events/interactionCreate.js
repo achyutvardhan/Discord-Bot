@@ -11,15 +11,13 @@ module.exports = {
 			console.error(`No command matching ${interaction.commandName} was found.`);
 			return;
 		}
-        console.log(client);
-		
-		//cooldown code 
-		const { cooldowns } = client;
+
+		const { cooldowns } = interaction.client;
 
 	if (!cooldowns.has(command.data.name)) {
 		cooldowns.set(command.data.name, new Collection());
 	}
-
+   console.log(cooldowns);
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.data.name);
 	const defaultCooldownDuration = 3;
